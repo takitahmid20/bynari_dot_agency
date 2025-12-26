@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -8,6 +8,8 @@ interface BoxPosition {
 }
 
 export const HeroSection: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
   const [boxes, setBoxes] = useState<BoxPosition[]>([
     { x: 100, y: 10 },    // We
     { x: 270, y: 10 },    // Build
@@ -21,7 +23,19 @@ export const HeroSection: React.FC = () => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const handleMouseDown = (index: number, e: React.MouseEvent) => {
+    if (isMobile) return;
     const box = e.currentTarget as HTMLElement;
     const rect = box.getBoundingClientRect();
     setDragging(index);
@@ -32,6 +46,7 @@ export const HeroSection: React.FC = () => {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (isMobile || dragging === null) return;
     if (dragging !== null && heroRef.current) {
       const heroRect = heroRef.current.getBoundingClientRect();
       const newX = e.clientX - heroRect.left - offset.x;
@@ -71,29 +86,52 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="pt-32 md:pt-40 lg:pt-48 pb-6 md:pb-16 lg:pb-24 px-4 md:px-8 bg-white">
       <div className="max-w-4xl mx-auto text-center">
-        {/* Main Headline with draggable bordered boxes */}
-        <div 
-          ref={heroRef}
-          className="relative min-h-[220px] mb-6 md:mb-10 flex items-center justify-center"
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-        >
-          {boxData.map((box, index) => (
-            <span
-              key={index}
-              className={`absolute border border-black px-3 md:px-6 py-2 md:py-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium opacity-0 cursor-move select-none ${box.bg} ${box.animationClass}`}
-              style={{
-                left: `${boxes[index].x}px`,
-                top: `${boxes[index].y}px`,
-                transform: `rotate(${box.rotation})`,
-              }}
-              onMouseDown={(e) => handleMouseDown(index, e)}
-            >
-              {box.text}
-            </span>
-          ))}
-        </div>
+        {/* Desktop: Draggable boxes */}
+        {!isMobile && (
+          <div 
+            ref={heroRef}
+            className="relative min-h-[220px] mb-6 md:mb-10 flex items-center justify-center"
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
+            {boxData.map((box, index) => (
+              <span
+                key={index}
+                className={`absolute border border-black px-3 md:px-6 py-2 md:py-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium opacity-0 cursor-move select-none ${box.bg} ${box.animationClass}`}
+                style={{
+                  left: `${boxes[index].x}px`,
+                  top: `${boxes[index].y}px`,
+                  transform: `rotate(${box.rotation})`,
+                }}
+                onMouseDown={(e) => handleMouseDown(index, e)}
+              >
+                {box.text}
+              </span>
+            ))}
+          </div>
+        )}
+        
+        {/* Mobile: Simple static layout */}
+        {isMobile && (
+          <h1 className="text-3xl sm:text-4xl font-medium mb-6 inline-flex flex-col items-center">
+            <div className="flex items-center gap-2">
+              <span className="border border-black px-3 py-2 animate-[slideInRotate1_0.6s_ease-out_0.1s_forwards] opacity-0" style={{ transform: 'rotate(-2deg)' }}>We</span>
+              <span className="border border-black px-3 py-2 animate-[slideInRotate2_0.6s_ease-out_0.3s_forwards] opacity-0" style={{ transform: 'rotate(1deg)' }}>Build</span>
+            </div>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="bg-[#ff6bff] border border-black px-3 py-2 rounded-[20px] animate-[slideInRotate3_0.6s_ease-out_0.5s_forwards] opacity-0" style={{ transform: 'rotate(-1.5deg)' }}>Products</span>
+            </div>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="border border-black px-3 py-2 animate-[slideInRotate4_0.6s_ease-out_0.7s_forwards] opacity-0" style={{ transform: 'rotate(2deg)' }}>That</span>
+              <span className="border border-black px-3 py-2 animate-[slideInRotate5_0.6s_ease-out_0.9s_forwards] opacity-0" style={{ transform: 'rotate(-1deg)' }}>Move</span>
+            </div>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="border border-black px-3 py-2 animate-[slideInRotate6_0.6s_ease-out_1.1s_forwards] opacity-0" style={{ transform: 'rotate(1.5deg)' }}>People</span>
+            </div>
+          </h1>
+        )}
+        
         {/* Subheadline */}
         <p className="text-sm md:text-base lg:text-[18px] text-black max-w-2xl mx-auto mb-8 opacity-0 animate-[fadeInUp_0.6s_ease-out_1.3s_forwards]">
           Small team, big impact — we design, develop, and ship digital solutions that work.
