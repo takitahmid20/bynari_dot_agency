@@ -103,3 +103,92 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-sans;
   }
 }
+
+/* Custom Animations */
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRotate1 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg);
+  }
+}
+
+@keyframes slideInRotate2 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(1deg);
+  }
+}
+
+@keyframes slideInRotate3 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(-1.5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-1.5deg);
+  }
+}
+
+@keyframes slideInRotate4 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(2deg);
+  }
+}
+
+@keyframes slideInRotate5 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-1deg);
+  }
+}
+
+@keyframes slideInRotate6 {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(1.5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(1.5deg);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
