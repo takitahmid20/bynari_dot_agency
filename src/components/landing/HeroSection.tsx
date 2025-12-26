@@ -60,12 +60,12 @@ export const HeroSection: React.FC = () => {
   };
 
   const boxData = [
-    { text: 'We', rotation: '-2deg', animation: 'slideInRotate1', delay: '0.1s', bg: '' },
-    { text: 'Build', rotation: '1deg', animation: 'slideInRotate2', delay: '0.3s', bg: '' },
-    { text: 'Products', rotation: '-1.5deg', animation: 'slideInRotate3', delay: '0.5s', bg: 'bg-[#ff6bff] rounded-[20px] md:rounded-[40px]' },
-    { text: 'That', rotation: '2deg', animation: 'slideInRotate4', delay: '0.7s', bg: '' },
-    { text: 'Move', rotation: '-1deg', animation: 'slideInRotate5', delay: '0.9s', bg: '' },
-    { text: 'People', rotation: '1.5deg', animation: 'slideInRotate6', delay: '1.1s', bg: '' },
+    { text: 'We', rotation: '-2deg', animationClass: 'animate-[slideInRotate1_0.6s_ease-out_0.1s_forwards]', bg: '' },
+    { text: 'Build', rotation: '1deg', animationClass: 'animate-[slideInRotate2_0.6s_ease-out_0.3s_forwards]', bg: '' },
+    { text: 'Products', rotation: '-1.5deg', animationClass: 'animate-[slideInRotate3_0.6s_ease-out_0.5s_forwards]', bg: 'bg-[#ff6bff] rounded-[20px] md:rounded-[40px]' },
+    { text: 'That', rotation: '2deg', animationClass: 'animate-[slideInRotate4_0.6s_ease-out_0.7s_forwards]', bg: '' },
+    { text: 'Move', rotation: '-1deg', animationClass: 'animate-[slideInRotate5_0.6s_ease-out_0.9s_forwards]', bg: '' },
+    { text: 'People', rotation: '1.5deg', animationClass: 'animate-[slideInRotate6_0.6s_ease-out_1.1s_forwards]', bg: '' },
   ];
 
   return (
@@ -82,7 +82,7 @@ export const HeroSection: React.FC = () => {
           {boxData.map((box, index) => (
             <span
               key={index}
-              className={`absolute border border-black px-3 md:px-6 py-2 md:py-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium opacity-0 cursor-move select-none ${box.bg} [animation:${box.animation}_0.6s_ease-out_${box.delay}_forwards]`}
+              className={`absolute border border-black px-3 md:px-6 py-2 md:py-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium opacity-0 cursor-move select-none ${box.bg} ${box.animationClass}`}
               style={{
                 left: `${boxes[index].x}px`,
                 top: `${boxes[index].y}px`,
