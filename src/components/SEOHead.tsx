@@ -11,11 +11,11 @@ interface SEOHeadProps {
 export const SEOHead = ({ 
   title, 
   description, 
-  keywords = 'events, discover events, event management, community events',
-  image = '/placeholder.svg',
+  keywords = 'web development, app development, UI/UX design, branding, digital agency, product design, software development',
+  image = '/bynari-svg-logo.svg',
   url = window.location.href
 }: SEOHeadProps) => {
-  const fullTitle = `${title} | EventHub`;
+  const fullTitle = title.includes('Bynari') ? title : `${title} | Bynari.agency`;
   
   return (
     <Helmet>

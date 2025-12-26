@@ -16,6 +16,9 @@ const Landing = () => {
       <SEOHead 
         title="Bynari.agency - We Build Products That Move People"
         description="Small team, big impact — we design, develop, and ship digital solutions that work. UI/UX Design, Web & App Development, Product Strategy, and Branding."
+        keywords="web development agency, app development, UI UX design, product design, branding agency, digital solutions, software development, custom web apps, mobile app development, digital agency, design agency, product strategy, MVP development"
+        image="https://bynari.vercel.app/bynari-svg-logo.svg"
+        url="https://bynari.vercel.app"
       />
       
       <Navbar />
